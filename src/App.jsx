@@ -14,7 +14,7 @@ function App() {
       username: userName,
       password: userPass,
     }).then((res) => {
-      console.log(res)
+      // console.log(res)
     })
     setUserName('')
     setUserPass('')
@@ -27,8 +27,8 @@ function App() {
       username: userName,
       password: userPass,
     }).then((res) => {
-      console.log(typeof res.data)
-      console.log(res.data)
+      // console.log(typeof res.data)
+      // console.log(res.data)
       const arr = []
       if (res.data.message) {
         const data = {
@@ -45,34 +45,71 @@ function App() {
           arr.push(data)
         }
       }
-      console.log(arr)
+      // console.log(arr)
       setContent(arr)
     })
     setUserName('')
     setUserPass('')
-
   }
   return (
-    <div className='flex flex-col gap-8 justify-center items-center'>
-      <input className='input input-bordered input-primary w-full max-w-xs'
-        type="text"
-        onChange={(e) => setUserName(e.target.value)}
-        value={userName}
-        placeholder='username' />
-      <input className='input input-bordered input-secondary w-full max-w-xs'
-        type="text"
-        onChange={(e) => setUserPass(e.target.value)}
-        value={userPass}
-        placeholder='password' />
-      <input type="submit" onClick={handleLogin} />
-      {
-        content.map((e, i) => (
-          <div>
-            <h1>{e.message}</h1>
-            <h1>{e.pass}</h1>
+    <div className='flex w-full h-[100vh] justify-center items-center'>
+
+      <div className='flex w-full h-full flex-col gap-2 justify-center items-center self-center'>
+        <input className='input input-bordered input-primary w-full max-w-lg'
+          type="text"
+          onChange={(e) => setUserName(e.target.value)}
+          value={userName}
+          placeholder='username' />
+        <input className='input input-bordered input-secondary w-full max-w-lg'
+          type="text"
+          onChange={(e) => setUserPass(e.target.value)}
+          value={userPass}
+          placeholder='password' />
+
+        <label htmlFor='my-modal' className='btn btn-outline btn-success  w-full max-w-lg mt-4' type="submit" onClick={handleLogin} >Login</label>
+
+        <input type="checkbox" id="my-modal" className="modal-toggle" />
+        <div className="modal">
+          <div className="modal-box">
+            {
+
+              <div className=" ">
+                <table className=" table table-zebra w-full">
+                  {/* head */}
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Name</th>
+                      <th>Password</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      content.map((elem, idx) => (
+                        <tr>
+                          <th>{idx + 1}</th>
+                          <th>{elem.message}</th>
+                          <th>{elem.pass}</th>
+                        </tr>
+
+                      ))
+                    }
+                  </tbody>
+                </table>
+              </div>
+
+            }
+            <div className="modal-action">
+              <label htmlFor="my-modal" className="btn">ok</label>
+            </div>
           </div>
-        ))
-      }
+        </div>
+
+
+
+
+      </div>
     </div>
   );
 }
